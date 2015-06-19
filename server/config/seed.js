@@ -7,6 +7,7 @@
 
 var User = require('../api/user/user.model');
 
+
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
