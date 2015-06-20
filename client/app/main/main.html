@@ -1,12 +1,33 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<header class="hero-unit" id="banner">
-  <div class="container">
-    <h1>Saloony</h1>
-    <p class="lead"></p>
-  </div>
-</header>
+<!--<header class="hero-unit" id="banner">-->
+<!--  <div class="container">-->
+<!--    <h1>Saloony</h1>-->
+<!--    <p class="lead"></p>-->
+<!--  </div>-->
+<!--</header>-->
 
+<div class="container">
+  <div class="row main-search">
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="search" class="form-control" placeholder="Where are you?"/>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-default">Find</button>
+      </div>
+    </form>
+  </div>
+  <div class="row hidden-xs">
+    <div class="col-xs-12 main-header">
+      <h3>Explore Cities</h3>
+      <hr>      
+    </div>
+    <div class="col-xs-12 col-md-4" ng-repeat="city in ctrl.cities">
+      <a href="#" class="thumbnail">{{ city.name }}</a>
+    </div>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="container">
