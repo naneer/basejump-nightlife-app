@@ -21,6 +21,16 @@ angular.module('workspaceApp')
                 {"name": "Miami"},
                 {"name": "Toronto"}
               ]
+          },
+          Bar: function(){
+            return [
+              { "name": "Pub" },
+              { "name": "Dive" },
+              { "name": "Sports" },
+              { "name": "Lounge" },
+              { "name": "Karaoke" },
+              { "name": "Comedy" }
+            ]
           }
         }
       });

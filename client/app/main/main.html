@@ -18,15 +18,31 @@
       </div>
     </form>
   </div>
+  
   <div class="row hidden-xs">
     <div class="col-xs-12 main-header">
       <h3>Explore Cities</h3>
       <hr>      
     </div>
     <div class="col-xs-12 col-md-4" ng-repeat="city in ctrl.cities">
-      <a href="#" class="thumbnail">{{ city.name }}</a>
+      <a href="#" class="thumbnail">
+        {{ city.name }}
+      </a>
     </div>
   </div>
+  
+  <div class="row hidden-xs">
+    <div class="col-xs-12 main-header">
+      <h3>Explore Bar Types</h3>
+      <hr>
+    </div>
+    <div class="col-xs-12 col-md-4" ng-repeat="bartype in ctrl.bartypes">
+      <a href="#" class="thumbnail">
+        {{ bartype.name }}
+      </a>
+    </div>
+  </div>
+  
 </div>
 
 <footer class="footer">
