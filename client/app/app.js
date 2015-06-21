@@ -7,15 +7,26 @@ angular.module('workspaceApp', [
   'ui.router',
   'ui.bootstrap'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
+  function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+    $urlRouterProvider.rule(function($injector, $location){
+      var path = $location.path();
+      
+      // Remove trailing slashes from path
+      if(path !== '/' && path.slice(-1) === '/'){
+        $location.replace().path(path.slice(0, -1));
+      }
+    });
+    
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
-  })
+  }])
 
-  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+  .factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', '$location',
+  function ($rootScope, $q, $cookieStore, $location) {
     return {
       // Add authorization token to headers
       request: function (config) {
@@ -39,9 +50,10 @@ angular.module('workspaceApp', [
         }
       }
     };
-  })
+  }])
 
-  .run(function ($rootScope, $location, Auth) {
+  .run(['$rootScope', '$location', 'Auth', 
+  function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
@@ -50,4 +62,4 @@ angular.module('workspaceApp', [
         }
       });
     });
-  });
+  }]);

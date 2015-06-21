@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('workspaceApp')
-  .config(function ($stateProvider) {
+  .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main', {
         url: '/',
@@ -34,4 +34,4 @@ angular.module('workspaceApp')
           }
         }
       });
-  });
+  }]);

@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('workspaceApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location, $window) {
+  .controller('SignupCtrl', ['$scope', 'Auth', '$location', '$window',
+  function ($scope, Auth, $location, $window) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -34,4 +35,4 @@ angular.module('workspaceApp')
     $scope.loginOauth = function(provider) {
       $window.location.href = '/auth/' + provider;
     };
-  });
+  }]);
