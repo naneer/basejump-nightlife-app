@@ -16,6 +16,11 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     padding: 0.2em 0;
 }
 
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
 
 // Component styles are injected through grunt
 // injector

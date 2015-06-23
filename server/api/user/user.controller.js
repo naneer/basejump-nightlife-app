@@ -30,29 +30,46 @@ var validationError = function(res, err) {
   }
 };
 
+/**
+ * Get list of users going to saloon
+ */
 
-exports.going = function(req, res) {
-  var query = {schedule: {}};
+exports.goingIndex = function(req, res) {
+  var query = {};
   var info = {};
-  if(req.query.saloon_id && req.query.when){
-    query.schedule.saloon_id = req.query.saloon_id;
-    query.schedule.when = req.query.when;
-    (req.query.offset) ? (query.offset = req.query.offset) : 0;
-  }
   
-  User.find({ "schedule.saloon_id": query.schedule.saloon_id }).count(function(err, count){
+  (req.query.saloon_id) ? (query.saloon_id = req.query.saloon_id) : "";
+  (req.query.night) ? (query.night = req.query.night) : "";
+  (req.query.offset) ? (query.offset = req.query.offset) : 0;
+
+  User.find({ "schedule.saloon_id": query.saloon_id, "schedule.night" : query.night }).count(function(err, count){
     if (err) return res.send(500, err);
     info.total = count;
-    if(count > 0){
-      User.find({ "schedule.saloon_id": query.schedule.saloon_id }).select('name').skip(req.query.offset).limit(2).exec(function(err, users){
-        if (err) return res.send(500, err);
-        info.users = users;
-        res.json(200, info);
-      });
-    } else {
+    if(count <= 0){
       res.json(200, info);
     }
+    User.find({ "schedule.saloon_id": query.saloon_id, "schedule.night" : query.night })
+        .select('name').skip(req.query.offset).limit(1)
+        .exec(function(err, users){
+          if (err) return res.send(500, err);
+            info.users = users;
+            res.json(200, info);
+        });
   });
+};
+
+/**
+ * Updates User Schedule with Saloon going tonight
+ */
+exports.imgoing = function(req, res, next){
+  var userId = req.user._id;
+};
+
+/** 
+ * Updates User Schedule removes user from Saloon
+ */
+exports.imnotgoing = function(req, res, next){
+  var userId = req.user._id;
 };
 
 /**

@@ -15,7 +15,7 @@ angular.module('workspaceApp')
           Saloonies: [
             'User', '$stateParams',
             function(User, $stateParams){
-              return User.getSaloonies({saloon_id: $stateParams.id, when: 'Jun 22, 2015', offset: 2}).$promise;
+              return User.getSaloonies({saloon_id: $stateParams.id, night: 'Jun 22, 2015', offset: 0}).$promise;
             }
           ]
         }

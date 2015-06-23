@@ -21,7 +21,7 @@ User.find({}).remove(function() {
     email: 'reenan@naneer.com',
     password: 'test',
     schedule: [
-      { 'saloon_id': 'melody-lounge-los-angeles' }
+      { 'saloon_id': 'melody-lounge-los-angeles', 'night': 'test'}
       ]
   },
   {
@@ -30,7 +30,7 @@ User.find({}).remove(function() {
     email: 'Beenan@naneer.com',
     password: 'test',
     schedule: [
-      { 'saloon_id': 'melody-lounge-los-angeles'}
+      { 'saloon_id': 'melody-lounge-los-angeles', 'night': 'Jun 22, 2015'}
       ]
   },
   {
@@ -39,7 +39,7 @@ User.find({}).remove(function() {
     email: 'Meenan@naneer.com',
     password: 'test',
     schedule: [
-      { 'saloon_id': 'melody-lounge-los-angeles'}
+      { 'saloon_id': 'melody-lounge-los-angeles', 'night': 'Jun 22, 2015'}
       ]
   },
   {
@@ -48,7 +48,7 @@ User.find({}).remove(function() {
     email: 'Feenan@naneer.com',
     password: 'test',
     schedule: [
-      { 'saloon_id': 'melody-lounge-los-angeles'}
+      { 'saloon_id': 'melody-lounge-los-angeles', 'night': 'Jun 22, 2015'}
       ]
   },
   {

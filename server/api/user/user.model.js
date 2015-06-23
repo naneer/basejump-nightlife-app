@@ -9,7 +9,7 @@ var timestamps = require('mongoose-timestamps');
 
 var UserScheduleSchema = new Schema({
   saloon_id: String,
-  when: String
+  night: String
 });
 
 UserScheduleSchema.plugin(timestamps);
