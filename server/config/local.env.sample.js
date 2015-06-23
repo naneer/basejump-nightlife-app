@@ -13,5 +13,11 @@ module.exports = {
   TWITTER_SECRET:   'secret',
 
   // Control debug level for modules using visionmedia/debug
-  DEBUG: ''
+  DEBUG: '',
+  
+  // YELP OAUTH STUFF
+  YELP_CONSUMER_KEY: '',
+  YELP_CONSUMER_SECRET: '',
+  YELP_TOKEN: '',
+  YELP_TOKEN_SECRET: ''
 };

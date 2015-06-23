@@ -19,6 +19,27 @@
     </form>
   </div>
   
+  <div class="row">
+    <div class="col-xs-12 main-header">
+      <h4>
+        We found 
+        <ng-pluralize count="ctrl.totalSaloons" when="{'0': 'no Saloons',
+                                                       '1': '1 Saloon',
+                                                       'other': '{} Saloons'}">
+          
+        </ng-pluralize>
+        in {{ ctrl.location }}
+      </h4>
+    </div>
+    <div class="col-xs-12">
+      <ul class="list-group">
+        <li ng-repeat="saloon in ctrl.saloons" class="list-group-item">
+          <a ui-sref="saloons.show({id: saloon.id})">{{ saloon.name }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
   <div class="row hidden-xs">
     <div class="col-xs-12 main-header">
       <h3>Explore Cities</h3>

@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-xs-12">
+        <h2>{{ saloon.name }}</h2>
+    </div>    
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <h4>{{ saloon.address }}</h4>
+        <a ng-href="{{ saloon.url }}">More Info</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <h3>We're going</h3>
+    </div>
+    <div ng-repeat="saloony in saloon.saloonies" class="col-xs-12 col-sm-6 col-md-4">
+      <a href="#" class="thumbnail">
+        {{ saloony.name }}
+      </a>
+    </div>
+</div>

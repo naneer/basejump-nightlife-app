@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('workspaceApp')
-  .config(['$stateProvier', function ($stateProvider) {
+  .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('admin', {
         url: '/admin',
