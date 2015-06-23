@@ -12,7 +12,8 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <button type="button" class="btn btn-primary btn-lg">I'm Going</button>
+        <button type="button" class="btn btn-primary btn-lg" ng-click="saloon.imGoing()">I'm Going</button>
+        <button type="button" class="btn btn-primary btn-lg" ng-click="saloon.imNotGoing()">I'm Not Going</button>
         <hr>
     </div>
 </div>
@@ -33,11 +34,11 @@
 </div>
 <div class="row">
     <div class="col-xs-3 visible-md-block visible-lg-block col-centered">
-        <pagination boundary-links="true" total-items="saloon.totalSaloonies" items-per-page="1" 
+        <pagination boundary-links="true" total-items="saloon.totalSaloonies" items-per-page="10" 
                     ng-model="saloon.currentPage" class="pagination-sm" ng-change="saloon.updatePage()" 
                     previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
     </div>
     <div class="col-xs-12 visible-xs visible-sm">
-        <pager total-items="saloon.totalSaloonies" ng-model="saloon.currentPage" items-per-page="1" ng-change="saloon.updatePage()" ></pager>
+        <pager total-items="saloon.totalSaloonies" ng-model="saloon.currentPage" items-per-page="10" ng-change="saloon.updatePage()" ></pager>
     </div>
 </div>

@@ -18,8 +18,8 @@ router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', controller.create);
 
-goingRouter.get('/going', goingController.index);
-goingRouter.put('/going/yes', auth.hasRole('user'), goingController.imgoing);
-goingRouter.put('/going/no', auth.hasRole('user'), goingController.imnotgoing);
+goingRouter.get('/', goingController.index);
+goingRouter.put('/:saloon_id', auth.isAuthenticated(), goingController.create);
+goingRouter.put('/:saloon_id/cancel', auth.isAuthenticated(), goingController.destroy);
 
 module.exports = router;
