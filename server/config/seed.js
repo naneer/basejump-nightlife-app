@@ -14,7 +14,44 @@ User.find({}).remove(function() {
     name: 'Test User',
     email: 'test@test.com',
     password: 'test'
-  }, {
+  }, 
+  {
+    provider: 'local',
+    name: 'Reenan',
+    email: 'reenan@naneer.com',
+    password: 'test',
+    schedule: [
+      { 'saloon_id': 'melody-lounge-los-angeles' }
+      ]
+  },
+  {
+    provider: 'local',
+    name: 'Beenan',
+    email: 'Beenan@naneer.com',
+    password: 'test',
+    schedule: [
+      { 'saloon_id': 'melody-lounge-los-angeles'}
+      ]
+  },
+  {
+    provider: 'local',
+    name: 'Meenan',
+    email: 'Meenan@naneer.com',
+    password: 'test',
+    schedule: [
+      { 'saloon_id': 'melody-lounge-los-angeles'}
+      ]
+  },
+  {
+    provider: 'local',
+    name: 'Feenan',
+    email: 'Feenan@naneer.com',
+    password: 'test',
+    schedule: [
+      { 'saloon_id': 'melody-lounge-los-angeles'}
+      ]
+  },
+  {
     provider: 'local',
     role: 'admin',
     name: 'Admin',

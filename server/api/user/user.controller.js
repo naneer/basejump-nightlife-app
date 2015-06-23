@@ -11,12 +11,47 @@ var validationError = function(res, err) {
 
 /**
  * Get list of users
- * restriction: 'admin'
+ * restriction: 'users'
  */
-exports.index = function(req, res) {
-  User.find({}, '-salt -hashedPassword', function (err, users) {
+ exports.index = function(req, res) {
+  var callback = function (err, users) {
     if(err) return res.send(500, err);
     res.json(200, users);
+  };
+  
+  var query = {};
+  (req.query.name) ? (query.name = req.query.name) : "";
+  
+  
+  if(req.user.role === 'admin'){
+    User.find(query, '-salt -hashedPassword', callback);
+  } else if(req.user.role === 'user'){
+    User.find(query, 'name', callback);
+  }
+};
+
+
+exports.going = function(req, res) {
+  var query = {schedule: {}};
+  var info = {};
+  if(req.query.saloon_id && req.query.when){
+    query.schedule.saloon_id = req.query.saloon_id;
+    query.schedule.when = req.query.when;
+    (req.query.offset) ? (query.offset = req.query.offset) : 0;
+  }
+  
+  User.find({ "schedule.saloon_id": query.schedule.saloon_id }).count(function(err, count){
+    if (err) return res.send(500, err);
+    info.total = count;
+    if(count > 0){
+      User.find({ "schedule.saloon_id": query.schedule.saloon_id }).select('name').skip(req.query.offset).limit(2).exec(function(err, users){
+        if (err) return res.send(500, err);
+        info.users = users;
+        res.json(200, info);
+      });
+    } else {
+      res.json(200, info);
+    }
   });
 };
 

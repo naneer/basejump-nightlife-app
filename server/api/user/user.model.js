@@ -3,7 +3,16 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
+var Promise = require('promise');
 var authTypes = ['github', 'twitter', 'facebook', 'google'];
+var timestamps = require('mongoose-timestamps');
+
+var UserScheduleSchema = new Schema({
+  saloon_id: String,
+  when: String
+});
+
+UserScheduleSchema.plugin(timestamps);
 
 var UserSchema = new Schema({
   name: String,
@@ -16,7 +25,8 @@ var UserSchema = new Schema({
   provider: String,
   salt: String,
   twitter: {},
-  github: {}
+  github: {},
+  schedule: [UserScheduleSchema]
 });
 
 /**

@@ -10,7 +10,7 @@ function Saloon(){
   var baseUrl = "http://api.yelp.com/v2/";
   var defaultSearchOptions = {
     offset: 0,
-    limit: 20,
+    limit: 10,
     category_filter: "bars",
     location: "Los Angeles, CA"
   };

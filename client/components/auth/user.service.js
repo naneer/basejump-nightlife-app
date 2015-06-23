@@ -17,6 +17,12 @@ angular.module('workspaceApp')
         params: {
           id:'me'
         }
+      },
+      getSaloonies: {
+        method: 'GET',
+        params: {
+          id: 'going'
+        }
       }
 	  });
   });
