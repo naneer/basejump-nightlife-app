@@ -6,5 +6,6 @@ angular.module('workspaceApp')
     saloon.name = SaloonObj.name;
     saloon.url = SaloonObj.url;
     saloon.address = SaloonObj.location.display_address.join(", ");
-    saloon.saloonies = Saloonies;
+    saloon.saloonies = Saloonies.users;
+    saloon.totalSaloonies = Saloonies.total;
   }]);

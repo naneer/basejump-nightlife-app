@@ -12,7 +12,7 @@ function Saloon(){
     offset: 0,
     limit: 20,
     category_filter: "bars",
-    location: "San Francisco, CA"
+    location: "Los Angeles, CA"
   };
   var oauth = new OAuth.OAuth(
     null,

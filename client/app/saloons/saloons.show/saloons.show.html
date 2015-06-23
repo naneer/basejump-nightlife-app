@@ -7,11 +7,23 @@
     <div class="col-xs-12">
         <h4>{{ saloon.address }}</h4>
         <a ng-href="{{ saloon.url }}">More Info</a>
+        <hr>
     </div>
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <h3>We're going</h3>
+        <button type="button" class="btn btn-primary btn-lg">I'm Going</button>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <h4>
+            <ng-pluralize count="saloon.totalSaloonies" when="{'0': 'No Saloonies are',
+                                            '1': 'One Saloony is',
+                                            'other': '{} Saloonies are'}"></ng-pluralize>
+            Going Tonight
+        </h4>
     </div>
     <div ng-repeat="saloony in saloon.saloonies" class="col-xs-12 col-sm-6 col-md-4">
       <a href="#" class="thumbnail">
