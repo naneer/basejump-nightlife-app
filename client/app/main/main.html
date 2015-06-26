@@ -9,16 +9,17 @@
 
 <div class="container">
   <div class="row main-search">
-    <form class="form-inline">
+    <form class="form-inline" ng-submit="ctrl.find()">
       <div class="form-group">
-        <input type="search" class="form-control" placeholder="Where are you?"/>
+        <input type="search" class="form-control" ng-model="ctrl.location" placeholder="Where are you?"/>
       </div>
       <div class="form-group">
-        <button type="button" class="btn btn-default">Find</button>
+        <button type="submit" class="btn btn-default">Find</button>
       </div>
     </form>
   </div>
   
+  <div ng-hide="!ctrl.location_result">
   <div class="row">
     <div class="col-xs-12 main-header">
       <h4>
@@ -28,16 +29,28 @@
                                                        'other': '{} Saloons'}">
           
         </ng-pluralize>
-        in {{ ctrl.location }}
+        in {{ ctrl.location_result }}
       </h4>
     </div>
     <div class="col-xs-12">
       <ul class="list-group">
-        <li ng-repeat="saloon in ctrl.saloons" class="list-group-item">
+        <li ng-repeat="saloon in ctrl.saloons" class="list-group-item animated fadeInUp ">
           <a ui-sref="saloons.show({id: saloon.id})">{{ saloon.name }} <span class="animated fadeIn badge" ng-if="saloon.count > 0">{{ saloon.count }}</a>
         </li>
       </ul>
     </div>
+  </div>
+  
+  <div class="row">
+      <div class="col-xs-3 visible-md-block visible-lg-block col-centered">
+          <pagination boundary-links="true" total-items="ctrl.totalPages" items-per-page="10" max-size="4"
+                      ng-model="ctrl.currentPage" class="pagination-sm" ng-change="ctrl.updatePage()" 
+                      previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+      </div>
+      <div class="col-xs-12 visible-xs visible-sm">
+          <pager total-items="ctrl.totalPages" ng-model="ctrl.currentPage" items-per-page="10" ng-change="ctrl.updatePage()" ></pager>
+      </div>
+  </div>  
   </div>
   
   <div class="row hidden-xs">
@@ -46,9 +59,11 @@
       <hr>      
     </div>
     <div class="col-xs-12 col-md-4" ng-repeat="city in ctrl.cities">
-      <a href="#" class="thumbnail">
-        {{ city.name }}
-      </a>
+      <div class="thumbnail">
+        <button class="btn btn-link" ng-click="ctrl.search(city.name)">
+          {{ city.name }}
+        </button>
+      </div>
     </div>
   </div>
   

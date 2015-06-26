@@ -5,7 +5,7 @@ var Saloon = require('./saloon.model');
 
 // Get list of saloons
 exports.index = function(req, res) {
-  Saloon.find({location: req.query.location}, function (err, saloons) {
+  Saloon.find({location: req.query.location, offset: req.query.offset }, function (err, saloons) {
     if(err) { return handleError(res, err); }
     return res.json(200, saloons);
   });

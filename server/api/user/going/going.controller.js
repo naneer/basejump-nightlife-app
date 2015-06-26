@@ -78,7 +78,6 @@ exports.check = function(req, res, next){
  */
 exports.create = function(req, res, next){
   var userId = req.user._id;
-  var info = {};
   User.findByIdAndUpdate(userId,
     {
         "$addToSet": {
@@ -101,7 +100,6 @@ exports.create = function(req, res, next){
  */
 exports.destroy = function(req, res){
   var userId = req.user._id;
-  var info = {};
   User.findByIdAndUpdate(userId,
     {
         "$pull": {
