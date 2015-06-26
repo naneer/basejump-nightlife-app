@@ -3,6 +3,17 @@
 var User = require('../user.model');
 
 /**
+ * Implement a concatAll()
+ */
+Array.prototype.concatAll = function() {
+  var results = [];
+  this.forEach(function(subArray){
+    results.push.apply(results, subArray);
+  });
+  return results;
+};
+
+/**
  * Get list of users going to saloon
  */
 
@@ -10,7 +21,7 @@ exports.index = function(req, res) {
   var query = {};
   var info = {};
   
-  (req.query.saloon_id) ? (query.saloon_id = req.query.saloon_id) : "";
+  (req.params.saloon_id) ? (query.saloon_id = req.params.saloon_id) : "";
   (req.query.night) ? (query.night = req.query.night) : "";
   (req.query.offset) ? (query.offset = req.query.offset) : 0;
 
@@ -18,16 +29,48 @@ exports.index = function(req, res) {
     if (err) return res.send(500, err);
     info.total = count;
     if(count <= 0){
-      res.json(200, info);
+      return res.json(200, info);
     }
-    User.find({ "schedule.saloon_id": query.saloon_id, "schedule.night" : query.night })
-        .select('name').skip(req.query.offset).limit(10)
+    User.find({ "schedule.saloon_id": query.saloon_id, "schedule.night" : query.night }, 'name schedule.$.timestamp')
+        .sort({ "schedule.timestamp" : -1 })
+        .skip(req.query.offset)
+        .limit(9)
         .exec(function(err, users){
           if (err) return res.send(500, err);
-            info.users = users;
+            info.users = users.map(function(user){
+              return user.schedule.map(function(saloon){
+                return { _id: user._id, name: user.name, timestamp: saloon.timestamp };
+              });
+          }).concatAll();
             res.json(200, info);
         });
   });
+};
+
+exports.count = function(req, res){
+  var query = {};
+  var info = {};
+  
+  (req.params.saloon_id) ? (query.saloon_id = req.params.saloon_id) : "";
+  (req.query.night) ? (query.night = req.query.night) : "";
+
+  User.find({ "schedule.saloon_id": query.saloon_id, "schedule.night" : query.night }).count(function(err, count){
+    if (err) return res.send(500, err);
+    info.total = count;
+    return res.json(200, info);
+  });
+};
+
+exports.check = function(req, res, next){
+  var userId = req.user._id;
+  var info = { status: 2 };
+  User.findOne(
+    { "_id": userId, "schedule.night": req.query.night, "schedule.saloon_id": req.params.saloon_id }, 'schedule.$', function(err, user){
+    if (err) return res.send(500, err);
+    if (user === null) return res.send(200, info);
+    info.status = 1;
+    res.json(200, info);
+  })
 };
 
 /**
@@ -35,21 +78,22 @@ exports.index = function(req, res) {
  */
 exports.create = function(req, res, next){
   var userId = req.user._id;
-
+  var info = {};
   User.findByIdAndUpdate(userId,
     {
         "$addToSet": {
             "schedule": {
                 "saloon_id": req.params.saloon_id,
-                "night": req.body.night
+                "night": req.query.night
             }
         }
     },
-    { new: true, select: 'name schedule' },
+    { select: 'name' },
     function(err, user){
+      user.save();
       if(err) return res.send(500, err);
-      return res.json(201, user);
-  });
+      res.send(200);
+    });
 };
 
 /** 
@@ -57,19 +101,20 @@ exports.create = function(req, res, next){
  */
 exports.destroy = function(req, res){
   var userId = req.user._id;
-
+  var info = {};
   User.findByIdAndUpdate(userId,
     {
         "$pull": {
             "schedule": {
                 "saloon_id": req.params.saloon_id,
-                "night": req.body.night
+                "night": req.query.night
             }
         }
     },
-    { new: true, select: 'name' },
+    { select: 'name' },
     function(err, user){
+      user.save();
       if(err) return res.send(500, err);
-      return res.json(201, user);
-  });
+      res.send(200);
+    });
 };

@@ -34,7 +34,7 @@
     <div class="col-xs-12">
       <ul class="list-group">
         <li ng-repeat="saloon in ctrl.saloons" class="list-group-item">
-          <a ui-sref="saloons.show({id: saloon.id})">{{ saloon.name }}</a>
+          <a ui-sref="saloons.show({id: saloon.id})">{{ saloon.name }} <span class="animated fadeIn badge" ng-if="saloon.count > 0">{{ saloon.count }}</a>
         </li>
       </ul>
     </div>

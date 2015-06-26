@@ -24,6 +24,13 @@ angular.module('workspaceApp')
           id: 'going'
         }
       },
+      goingTonight: {
+        method: 'GET',
+        params: {
+          id: 'going',
+          controller: 'tonight'
+        }
+      },
       imGoing: {
         method: 'PUT',
         params: {
@@ -37,6 +44,13 @@ angular.module('workspaceApp')
           id: 'going',
           controller: '@saloon_id',
           cancel: 'cancel'
+        }
+      },
+      goingCount: {
+        method: 'GET',
+        params: {
+          id: 'going',
+          controller: 'count'
         }
       }
 	  });

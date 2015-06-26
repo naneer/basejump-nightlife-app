@@ -7,7 +7,8 @@ var authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 var UserScheduleSchema = new Schema({
   saloon_id: String,
-  night: String
+  night: String,
+  timestamp : { type : Date, default: Date.now }
 }, { _id: false });
 
 var UserSchema = new Schema({
@@ -58,7 +59,7 @@ UserSchema
       'role': this.role
     };
   });
-
+  
 /**
  * Validations
  */
