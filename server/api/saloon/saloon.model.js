@@ -26,7 +26,6 @@ function Saloon(){
   
   this.find = function(customSearchOptions, callback){
     var options = _.assign({}, defaultSearchOptions, customSearchOptions);
-    console.log(options);
     return oauth.get(
       baseUrl + 'search/?' + querystring.stringify(options),
       oauthToken,

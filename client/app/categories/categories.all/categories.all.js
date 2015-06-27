@@ -3,13 +3,13 @@
 angular.module('workspaceApp')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('saloons.all', {
+      .state('categories.all', {
         url: '',
-        templateUrl: 'app/saloons/saloons.all/saloons.all.html',
-        controller: 'SaloonsAllCtrl',
+        templateUrl: 'app/categories/categories.all/categories.all.html',
+        controller: 'CategoriesAllCtrl',
         controllerAs: 'ctrl',
         onEnter: [
-          '$state',
+          '$state', 
           function($state){
             $state.go('main');
           }

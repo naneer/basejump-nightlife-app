@@ -24,14 +24,24 @@ angular.module('workspaceApp')
           },
           Bar: function(){
             return [
-              { "name": "Pub" },
-              { "name": "Dive" },
-              { "name": "Sports" },
-              { "name": "Lounge" },
-              { "name": "Karaoke" },
-              { "name": "Comedy" }
+              { "name": "Pubs", "filter": "pubs" },
+              { "name": "Dives", "filter": "divebars" },
+              { "name": "Sports", "filter": "sportsbars" },
+              { "name": "Lounges", "filter": "lounges" },
+              { "name": "Karaoke", "filter": "karaoke" },
+              { "name": "Comedy Clubs", "filter": "comedyclubs" }
             ]
-          }
+          },
+          PrevLocation: [
+            '$window', 
+            function($window){
+              var previous = {};
+              if($window.sessionStorage.location){
+                previous = $window.sessionStorage;
+              }
+              return previous;
+            }
+          ]
         }
       });
   }]);

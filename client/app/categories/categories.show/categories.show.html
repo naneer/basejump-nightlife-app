@@ -1,7 +1,7 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
-<div class="container">
-  <div class="row main-search">
+<div class="row">
+    <h3>Find {{ ctrl.category.name }}s</h3>
+</div>
+<div class="row main-search">
     <form class="form-inline" ng-submit="ctrl.find()">
       <div class="form-group">
         <input type="search" class="form-control" ng-model="ctrl.location" placeholder="Where are you?"/>
@@ -10,16 +10,16 @@
         <button type="submit" class="btn btn-default">Find</button>
       </div>
     </form>
-  </div>
-  
-  <div ng-hide="!ctrl.location_result">
+</div>
+
+<div ng-hide="!ctrl.location_result">
   <div class="row">
     <div class="col-xs-12 main-header">
       <h4>
         We found 
-        <ng-pluralize count="ctrl.totalSaloons" when="{'0': 'no Saloons',
-                                                       '1': '1 Saloon',
-                                                       'other': '{} Saloons'}">
+        <ng-pluralize count="ctrl.totalSaloons" when="{'0': 'no {{ ctrl.category.name }}s',
+                                                       '1': '1 {{ ctrl.category.name }}',
+                                                       'other': '{} {{ ctrl.category.name }}s'}">
           
         </ng-pluralize>
         in {{ ctrl.location_result }}
@@ -27,8 +27,8 @@
     </div>
     <div class="col-xs-12">
       <ul class="list-group">
-        <li ng-repeat="saloon in ctrl.saloons" class="list-group-item animated fadeInUp">
-          <a ui-sref="saloons.show({id: saloon.id})">{{ saloon.name }} <span class="animated flipInX badge" ng-if="saloon.count > 0">{{ saloon.count }}</a>
+        <li ng-repeat="saloon in ctrl.saloons" class="list-group-item animated fadeInUp ">
+          <a ui-sref="saloons.show({id: saloon.id})">{{ saloon.name }} <span class="animated fadeIn badge" ng-if="saloon.count > 0">{{ saloon.count }}</a>
         </li>
       </ul>
     </div>
@@ -44,36 +44,6 @@
           <pager total-items="ctrl.totalPages" ng-model="ctrl.currentPage" items-per-page="10" ng-change="ctrl.updatePage()" ></pager>
       </div>
   </div>  
-  </div>
-  
-  <div class="row hidden-xs">
-    <div class="col-xs-12 main-header">
-      <h3>Explore Cities</h3>
-      <hr>      
-    </div>
-    <div class="col-xs-12 col-md-4" ng-repeat="city in ctrl.cities">
-      <div class="thumbnail">
-        <button class="btn btn-link" ng-click="ctrl.search(city.name)">
-          {{ city.name }}
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  <div class="row hidden-xs">
-    <div class="col-xs-12 main-header">
-      <h3>Explore Saloon Types</h3>
-      <hr>
-    </div>
-    <div class="col-xs-12 col-md-4" ng-repeat="category in ctrl.categories">
-      <div class="thumbnail">
-        <a class="btn btn-link" ui-sref="categories.show({ filter: category.filter })">
-          {{ category.name }}
-        </a>
-      </div>
-    </div>
-  </div>
-  
 </div>
 
 <footer class="footer">

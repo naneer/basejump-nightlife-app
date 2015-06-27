@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('workspaceApp')
-  .controller('LoginCtrl', ['$scope', 'Auth', '$location', '$window',
-  function ($scope, Auth, $location, $window) {
+  .controller('LoginCtrl', ['$scope', 'Auth', '$rootScope', '$window', '$state',
+  function ($scope, Auth, $rootScope, $window, $state) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -16,7 +16,7 @@ angular.module('workspaceApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          $state.go($rootScope.$previousState.name, $rootScope.$previousStateParams);
         })
         .catch( function(err) {
           $scope.errors.other = err.message;

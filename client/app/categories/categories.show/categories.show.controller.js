@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('workspaceApp')
-  .controller('MainCtrl', ['City', 'Bar', 'Rsvp', 'Saloon', '$window', 'PrevLocation', function (City, Bar, Rsvp, Saloon, $window, PrevLocation) {
+  .controller('CategoriesShowCtrl', [ 'Category', 'Saloon', 'Rsvp', 'PrevLocation', function (Category, Saloon, Rsvp, PrevLocation) {
     var ctrl = this;
-    ctrl.cities = City;
-    ctrl.categories = Bar;
-
+    ctrl.category = Category[0];
     
     ctrl.search = function(city){
       ctrl.location = city;
@@ -15,7 +13,7 @@ angular.module('workspaceApp')
     ctrl.find = function(){
       if(!ctrl.location) { return; };
       ctrl.currentPage = 1;
-      var query = Saloon.get({ location: ctrl.location, offset: 0 }).$promise;
+      var query = Saloon.get({ location: ctrl.location, offset: 0, category_filter: ctrl.category.filter }).$promise;
       query.then(function(saloons){
         ctrl.saloons = saloons.businesses.map(function(saloon){
           var rsvpQuery = Rsvp.count({ saloon_id: saloon.id }).$promise;
@@ -27,23 +25,17 @@ angular.module('workspaceApp')
         ctrl.totalSaloons = saloons.total;
         (saloons.total > 1000) ? ctrl.totalPages = 1000 : ctrl.totalPages = ctrl.totalSaloons; 
         ctrl.location_result = ctrl.location;
-        
-        $window.sessionStorage.location = ctrl.location;
-        $window.sessionStorage.totalsaloons = ctrl.totalSaloons;
-        $window.sessionStorage.totalpages = ctrl.totalPages;
-        $window.sessionStorage.currentpage = ctrl.currentPage;
       });
     };
     
     ctrl.updatePage = function(){
-      var query = Saloon.get({ location: ctrl.location, offset: (ctrl.currentPage-1)*10 }).$promise;
+      var query = Saloon.get({ location: ctrl.location, offset: (ctrl.currentPage-1)*10, category_filter: ctrl.category.filter }).$promise;
       query.then(function(saloons){
          ctrl.saloons = saloons.businesses.map(function(saloon){
           var rsvpQuery = Rsvp.count({ saloon_id: saloon.id }).$promise;
           rsvpQuery.then(function(info){
             saloon.count = info.total;
           });
-          $window.sessionStorage.currentpage = ctrl.currentPage;
           return saloon;
         });       
       })
@@ -51,10 +43,6 @@ angular.module('workspaceApp')
 
     if(PrevLocation.location){
       ctrl.location = PrevLocation.location;
-      ctrl.currentPage = PrevLocation.currentpage;      
-      ctrl.location_result = PrevLocation.location;
-      ctrl.totalSaloons = PrevLocation.totalsaloons;
-      ctrl.totalPages = PrevLocation.totalpages;
-      ctrl.updatePage();
+      ctrl.find();
     }
   }]);

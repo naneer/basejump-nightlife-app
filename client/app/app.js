@@ -62,4 +62,10 @@ angular.module('workspaceApp', [
         }
       });
     });
+    
+    $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+      $rootScope.$previousState = from;
+      $rootScope.$previousStateParams = fromParams;
+    });
   }]);
+  
