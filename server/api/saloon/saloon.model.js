@@ -31,7 +31,7 @@ function Saloon(){
       oauthToken,
       oauthTokenSecret,
       function(err, data, res){
-        if(!err) {
+        if(err === null) {
          data = JSON.parse(data);
          data.location = options.location;
         }
