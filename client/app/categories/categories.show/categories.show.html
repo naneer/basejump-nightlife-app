@@ -17,9 +17,9 @@
     <div class="col-xs-12 main-header">
       <h4>
         We found 
-        <ng-pluralize count="ctrl.totalSaloons" when="{'0': 'no {{ ctrl.category.name }}s',
-                                                       '1': '1 {{ ctrl.category.name }}',
-                                                       'other': '{} {{ ctrl.category.name }}s'}">
+        <ng-pluralize count="ctrl.totalSaloons" when="{'0': ' no {{ ctrl.category.name }}s ',
+                                                       '1': ' 1 {{ ctrl.category.name }} ',
+                                                       'other': ' {} {{ ctrl.category.name }}s '}">
           
         </ng-pluralize>
         in {{ ctrl.location_result }}
