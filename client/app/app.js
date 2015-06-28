@@ -52,8 +52,8 @@ angular.module('workspaceApp', [
     };
   }])
 
-  .run(['$rootScope', '$location', 'Auth', 
-  function ($rootScope, $location, Auth) {
+  .run(['$rootScope', '$location', 'Auth', '$cookies',
+  function ($rootScope, $location, Auth, $cookies) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
@@ -64,6 +64,9 @@ angular.module('workspaceApp', [
     });
     
     $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+      if ($location.url() !== '/login' && $location.url() !== '/signup' && $location.url() !== '/settings') {
+        $cookies.put('returnUrl', $location.url());
+      }
       $rootScope.$previousState = from;
       $rootScope.$previousStateParams = fromParams;
     });

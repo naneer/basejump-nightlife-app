@@ -19,7 +19,7 @@ angular.module('workspaceApp')
                 {"name": "New York City"},
                 {"name": "Amsterdam"},
                 {"name": "Miami, FL"},
-                {"name": "Toronto"}
+                {"name": "San Francisco, CA"}
               ]
           },
           Bar: function(){

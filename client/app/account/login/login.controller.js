@@ -15,8 +15,13 @@ angular.module('workspaceApp')
           password: $scope.user.password
         })
         .then( function() {
-          // Logged in, redirect to home
-          $state.go($rootScope.$previousState.name, $rootScope.$previousStateParams);
+          // Logged in, redirect to previous state unless login, signup, settings, or none
+          var state = $rootScope.$previousState.name;
+          if(state === "login" || !state || state === "signup" || state === "settings"){
+            $state.go("main");
+          } else {
+            $state.go(state, $rootScope.$previousStateParams);
+          }
         })
         .catch( function(err) {
           $scope.errors.other = err.message;
