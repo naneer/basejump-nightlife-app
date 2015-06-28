@@ -7,7 +7,7 @@ var Saloon = require('./saloon.model');
 exports.index = function(req, res) {
   var query = req.query;
   Saloon.find(query, function (err, saloons) {
-    if(err) { return handleError(res, err); }
+    if(err) { return res.json(200, { location: "not found"}); }
     return res.json(200, saloons);
   });
 };

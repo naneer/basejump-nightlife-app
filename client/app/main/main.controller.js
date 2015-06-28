@@ -17,6 +17,12 @@ angular.module('workspaceApp')
       ctrl.currentPage = 1;
       var query = Saloon.get({ location: ctrl.location, offset: 0 }).$promise;
       query.then(function(saloons){
+        if(saloons.location === "not found"){
+          ctrl.totalSaloons = 0;
+          ctrl.location_result = ctrl.location;
+          ctrl.saloons = [];
+          return;
+        }
         ctrl.saloons = saloons.businesses.map(function(saloon){
           var rsvpQuery = Rsvp.count({ saloon_id: saloon.id }).$promise;
           rsvpQuery.then(function(info){
